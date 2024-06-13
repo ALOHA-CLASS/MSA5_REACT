@@ -95,7 +95,7 @@ select {
 }
 .card-list {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(3, auto);
   row-gap: 40px;
   margin: 100px 0;
 }
