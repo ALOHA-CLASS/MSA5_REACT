@@ -52,11 +52,11 @@ public class TodoController {
     @PostMapping()
     public ResponseEntity<?> create(@RequestBody Todo todo) {
         try {
-            int result = todoService.insert(todo);
-            if( result > 0 ) 
-                return new ResponseEntity<>("Create Result SUCCESS", HttpStatus.OK);
+            Todo newTodo = todoService.insert(todo);
+            if( newTodo != null ) 
+                return new ResponseEntity<>(newTodo, HttpStatus.OK);
             else 
-                return new ResponseEntity<>("Create Result FAIL", HttpStatus.OK);
+                return new ResponseEntity<>("FAIL", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -65,7 +65,17 @@ public class TodoController {
     @PutMapping()
     public ResponseEntity<?> update(@RequestBody Todo todo) {
         try {
-            int result = todoService.update(todo);
+            int result = 0;
+
+            // 전체 완료
+            if( todo.getNo() == -1 ) {
+                result = todoService.completeAll();
+            }
+            // 그냥 완료
+            else {
+                result = todoService.update(todo);
+            }
+
             if( result > 0 ) 
                 return new ResponseEntity<>("Update Result SUCCESS", HttpStatus.OK);
             else 
@@ -78,7 +88,15 @@ public class TodoController {
     @DeleteMapping("/{no}")
     public ResponseEntity<?> destroy(@PathVariable("no") Integer no) {
         try {
-             int result = todoService.delete(no);
+            int result = 0;
+            // 전체 삭제
+            if( no == -1 ) {
+                result = todoService.deleteAll();
+            }
+            // 그냥 삭제
+            else {
+                result = todoService.delete(no);
+            }
             if( result > 0 ) 
                 return new ResponseEntity<>("Delete Result SUCCESS", HttpStatus.OK);
             else 

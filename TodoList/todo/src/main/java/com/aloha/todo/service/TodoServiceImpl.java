@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.aloha.todo.dto.Todo;
 import com.aloha.todo.mapper.TodoMapper;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class TodoServiceImpl implements TodoService {
 
@@ -25,8 +27,13 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public int insert(Todo todo) throws Exception {
-        return todoMapper.insert(todo);
+    public Todo insert(Todo todo) throws Exception {
+        int result = todoMapper.insert(todo);
+        log.info("todo : " + todo);
+        log.info("result: " + result);
+        int newTodoNo = todo.getNo();
+        Todo newTodo = todoMapper.select(newTodoNo);
+        return newTodo;
     }
 
     @Override
@@ -37,6 +44,16 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public int delete(int no) throws Exception {
         return todoMapper.delete(no);
+    }
+
+    @Override
+    public int completeAll() throws Exception {
+        return todoMapper.completeAll();
+    }
+
+    @Override
+    public int deleteAll() throws Exception {
+        return todoMapper.deleteAll();
     }
 
     

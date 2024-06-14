@@ -1,11 +1,12 @@
 import React from 'react'
 
-const TodoInput = () => {
+const TodoInput = ( { onSubmit, input, onChange } ) => {
+
   return (
     <div>
-        <form action="" className='form'>
-            <input type="text" placeholder='할 일을 입력해주세요' name="name"
-                   className='input'  />
+        <form onSubmit={onSubmit} className='form'>
+            <input type="text" placeholder='할 일을 입력해주세요'
+                   className='input' value={input} onChange={onChange}  />
             <button type='submit' className='btn'>추가</button>
         </form>
     </div>
