@@ -29,6 +29,10 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
     
+    /**
+     * 목록
+     * @return
+     */
     @GetMapping()
     public ResponseEntity<?> getAll() {
         try {
@@ -39,6 +43,11 @@ public class TodoController {
         }
     }
     
+    /**
+     * 조회
+     * @param no
+     * @return
+     */
     @GetMapping("/{no}")
     public ResponseEntity<?> getOne(@PathVariable("no") Integer no) {
         try {
@@ -49,6 +58,11 @@ public class TodoController {
         }
     }
     
+    /**
+     * 등록
+     * @param todo
+     * @return
+     */
     @PostMapping()
     public ResponseEntity<?> create(@RequestBody Todo todo) {
         try {
@@ -62,6 +76,11 @@ public class TodoController {
         }
     }
     
+    /**
+     * 수정
+     * @param todo
+     * @return
+     */
     @PutMapping()
     public ResponseEntity<?> update(@RequestBody Todo todo) {
         try {
@@ -85,6 +104,11 @@ public class TodoController {
         }
     }
     
+    /**
+     * 삭제
+     * @param no
+     * @return
+     */
     @DeleteMapping("/{no}")
     public ResponseEntity<?> destroy(@PathVariable("no") Integer no) {
         try {
