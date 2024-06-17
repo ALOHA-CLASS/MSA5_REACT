@@ -1,23 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import Home from './components/Home';
-import List from './components/board/List';
-import Read from './components/board/Read';
-import Insert from './components/board/Insert';
-import Update from './components/board/Update';
-import Header from './components/Header';
+import Home from './pages/Home';
+import List from './pages/board/List';
+import Insert from './pages/board/Insert';
+import Read from './pages/board/Read';
+import Update from './pages/board/Update';
+
 
 function App() {
   return (
     <BrowserRouter>
-      <Header/>
       <Routes>
         <Route path="/" element={ <Home/> }></Route>
-        <Route path="/board" element={ <List/> }></Route>
-        <Route path="/board/:no" element={ <Read/> }></Route>
-        <Route path="/board/insert" element={ <Insert/> }></Route>
-        <Route path="/board/update/:no" element={ <Update/> }></Route>
+        <Route path="/boards" element={ <List/> }></Route>
+        <Route path="/boards/insert" element={ <Insert/> }></Route>
+        <Route path="/boards/:no" element={ <Read/> }></Route>
+        <Route path="/boards/update/:no" element={ <Update/> }></Route>
       </Routes>
     </BrowserRouter>
   );

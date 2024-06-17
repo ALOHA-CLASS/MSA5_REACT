@@ -20,7 +20,7 @@ import com.aloha.server.service.BoardService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/board")
+@RequestMapping("/boards")
 public class BoardController {
     
     @Autowired
@@ -37,7 +37,7 @@ public class BoardController {
     }
     
     @GetMapping("/{no}")
-    public ResponseEntity<?> getOne(@PathVariable int no) {
+    public ResponseEntity<?> getOne(@PathVariable("no") int no) {
         try {
             Board board = boardService.select(no);
             return new ResponseEntity<>(board, HttpStatus.OK);
@@ -73,7 +73,7 @@ public class BoardController {
     }
     
     @DeleteMapping("/{no}")
-    public ResponseEntity<?> destroy(@PathVariable int no) {
+    public ResponseEntity<?> destroy(@PathVariable("no") int no) {
         try {
             int result = boardService.delete(no);
             if(result > 0)

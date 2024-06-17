@@ -1,19 +1,65 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-const Read = () => {
-  // ❓ useParams() : 경로의 파라미터를 가져오는 훅
-  // <Route path="/경로/:param" element={ <컴포넌트 /> }></Route>
-  // const { param } = useParams()
-  const { no } = useParams()
+const Read = ({ no, board, isLoading }) => {
   return (
-    <>
-      <h1>게시글 조회</h1>
+    <div className='container'>
+      <h1 className="title">게시글 조회</h1>
       <h3>번호 : {no}</h3>
-      <Link to="/board">목록</Link>
       <hr />
-      <Link to={`/board/update/${no}`}>수정</Link>
-    </>
+
+      {
+        isLoading &&
+        <div>
+          <img src="/img/loading.webp" alt="loading" width="100%" />
+        </div>
+      }
+      {
+        !isLoading && board && (
+          <table>
+            <tbody>
+              <tr>
+                <td>번호</td>
+                <td>
+                  <input type="text" value={no} readOnly />
+                </td>
+              </tr>
+              <tr>
+                <td>등록일자</td>
+                <td>
+                  <input type="text" value={board.regDate} readOnly />
+                </td>
+              </tr>
+              <tr>
+                <td>제목</td>
+                <td>
+                  <input type="text" value={board.title} readOnly />
+                </td>
+              </tr>
+              <tr>
+                <td>작성자</td>
+                <td>
+                  <input type="text" value={board.writer} readOnly />
+                </td>
+              </tr>
+              <tr>
+                <td colSpan={2}>내용</td>
+              </tr>
+              <tr>
+                <td colSpan={2}>
+                  <textarea cols="40" rows="10" value={board.content} readOnly></textarea>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        )
+      }
+      <hr />
+      <div className="btn-box">
+        <Link to="/boards" className='btn'>목록</Link>
+        <Link to={`/boards/update/${no}`} className='btn'>수정</Link>
+      </div>
+    </div>
   )
 }
 
