@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.aloha.shop.???.mapper.???Mapper">
+<mapper namespace="com.aloha.???.mapper.???Mapper">
 
     <!-- 목록 -->
     <select id="list" resultType="">
