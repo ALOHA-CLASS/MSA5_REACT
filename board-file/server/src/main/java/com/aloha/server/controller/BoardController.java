@@ -83,7 +83,8 @@ public class BoardController {
     }
     
     @PutMapping()
-    public ResponseEntity<?> update(@RequestBody Board board) {
+    // public ResponseEntity<?> update(@RequestBody Board board) {
+    public ResponseEntity<?> update(Board board) {
         try {
             int result = boardService.update(board);
             if(result > 0)

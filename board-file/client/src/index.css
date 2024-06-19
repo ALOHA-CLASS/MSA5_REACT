@@ -3,13 +3,13 @@
 
 /* 📄 index.css */
 /* CSS 공통 초기화 작업 */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* * { margin: 0; padding: 0; box-sizing: border-box; } */
 
 body {
   font-family: 'Noto Sans', sans-serif;
   font-size: var(--font-size-main);
 }
-ul { list-style-type: none; }
+/* ul { list-style-type: none; } */
 a { text-decoration: none; color: black; font-weight: bold; }
 a:hover:not(.btn) { text-decoration: underline; }
 img { width: 100%; }
