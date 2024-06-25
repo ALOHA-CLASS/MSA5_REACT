@@ -7,3 +7,7 @@ npm install
 
 ### 서버 실행
 npm start
+
+
+### 라이브러리 설치
+npm install react-router-dom
