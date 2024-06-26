@@ -168,7 +168,17 @@ const LoginContextProvider = ({ children }) => {
   }
 
   // 🔓 로그아웃
-  const logout = () => {
+  const logout = (force=false) => {
+
+    if( force ) {
+      // 로그아웃 세팅
+      logoutSetting()
+  
+      // 페이지 이동 ➡ "/" (메인)
+      navigate("/")
+      return
+    }
+
 
     Swal.confirm("로그아웃하시겠습니까?", "로그아웃을 진행합니다.", "warning",
       (result) => {
@@ -202,7 +212,7 @@ const LoginContextProvider = ({ children }) => {
 
   return (
     // 컨텍스트 값 지정 ➡ value={ ?, ? }
-    <LoginContext.Provider value={ {isLogin, login, logout} }>
+    <LoginContext.Provider value={ {isLogin, userInfo, roles, login, loginCheck, logout} }>
       {children}
     </LoginContext.Provider>
   )

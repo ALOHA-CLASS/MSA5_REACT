@@ -4,9 +4,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import Join from './pages/Join';
 import User from './pages/User';
+import Admin from './pages/Admin';
 import About from './pages/About';
-import LoginContextProvider from './contexts/LoginContextProvider';
 import Home from './pages/Home';
+import LoginContextProvider from './contexts/LoginContextProvider';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/join" element={<Join/>}></Route>
           <Route path="/user" element={<User/>}></Route>
           <Route path="/about" element={<About/>}></Route>
+          <Route path="/admin" element={ <Admin /> }></Route>
         </Routes>
       </LoginContextProvider>
     </BrowserRouter>
