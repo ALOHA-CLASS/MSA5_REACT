@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import api from '../apis/api'
 import * as auth from '../apis/auth'
+import * as Swal from '../apis/alert'
 
 // 📦컨텍스트 생성
 export const LoginContext = createContext()
@@ -99,12 +100,17 @@ const LoginContextProvider = ({ children }) => {
         // 로그인 체크
         loginCheck()
 
+        Swal.alert("로그인 성공", "메인 화면으로 이동합니다", "success",
+          () => { navigate("/") }
+        )
+
         // 메인 페이지로 이동
-        navigate("/")
+        // navigate("/")
 
       }
 
     } catch (error) {
+      Swal.alert("로그인 실패", "아이디 또는 비밀번호가 일치하지 않습니다", "error")
       console.log(`로그인 실패`);
     }
   }
@@ -123,7 +129,7 @@ const LoginContextProvider = ({ children }) => {
     console.log(`roleList : ${roleList}`);
 
     // axios common header - Authorizaion 헤더에 jwt 등록
-    api.defaults.common.headers.Authorization = `Bearer ${accessToken}`
+    api.defaults.headers.common.Authorization = `Bearer ${accessToken}`
 
     // 📦 Context 에 정보 등록
     // 🔐 로그인 여부 세팅
@@ -159,13 +165,44 @@ const LoginContextProvider = ({ children }) => {
 
     // 👮‍♀️❌ 권한 정보 초기화
     setRoles(null)
-}
+  }
 
+  // 🔓 로그아웃
+  const logout = () => {
 
+    Swal.confirm("로그아웃하시겠습니까?", "로그아웃을 진행합니다.", "warning",
+      (result) => {
+        // isConfirmed : 확인 버튼 클릭 여부
+        if( result.isConfirmed ) {
+          Swal.alert("로그아웃 성공", "", "success")
+          logoutSetting()       // 로그아웃 세팅
+          navigate("/")         // 메인 페이지로 이동
+        }
+      }
+    )
+
+    // const check = window.confirm("정말로 로그아웃하시겠습니까?")
+    // if( check ) {
+    //   // 로그아웃 세팅
+    //   logoutSetting()
+
+    //   // 메인 페이지로 이동
+    //   navigate("/")
+    // }
+  }
+
+  // Mount / Update
+  useEffect( () => {
+    // 로그인 체크
+    loginCheck()
+    // 1️⃣ 🍪 쿠키에서 jwt💍 을 꺼낸다
+    // 2️⃣ jwt 💍 있으면, 서버한테 👩‍💼 사용자정보를 받아온다
+    // 3️⃣ 로그인 세팅을 한다. (📦 로그인여부, 사용자정보, 권한정보 등록)
+  }, [])
 
   return (
     // 컨텍스트 값 지정 ➡ value={ ?, ? }
-    <LoginContext.Provider value={ {isLogin, logout }}>
+    <LoginContext.Provider value={ {isLogin, login, logout} }>
       {children}
     </LoginContext.Provider>
   )
